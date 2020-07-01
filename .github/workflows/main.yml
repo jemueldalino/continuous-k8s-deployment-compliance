@@ -26,4 +26,4 @@ jobs:
         kubectl apply -f job.yaml -n compliance
         kubectl get pods -n compliance
         kubectl wait --for=condition=complete jobs/kube-bench -n compliance
-        kubectl logs kube-bench -n compliance
+        kubectl logs jobs/kube-bench -n compliance
