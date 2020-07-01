@@ -15,7 +15,7 @@ jobs:
         sudo snap remove minikube
         curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
         sudo install minikube-linux-amd64 /usr/local/bin/minikube
-        minikube start --kubernetes-version=v1.15.1
+        minikube start --kubernetes-version=v1.15.1 --vm-driver=kvm2
         minikube update-context
         kubectl cluster-info
         kubectl get pods -n kube-system
