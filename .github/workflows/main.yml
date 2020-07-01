@@ -26,4 +26,9 @@ jobs:
         kubectl apply -f job.yaml -n compliance
         kubectl get pods -n compliance
         kubectl wait --for=condition=complete jobs/kube-bench -n compliance
-        kubectl logs jobs/kube-bench -n compliance
+        failcount=(kubectl logs jobs/kube-bench -n compliance | grep -o "FAIL")
+        if [ $failcount -gt 4 ]; then
+          exit 1
+        else
+          exit 0
+        fi 
