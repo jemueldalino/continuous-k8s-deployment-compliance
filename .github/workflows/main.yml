@@ -27,7 +27,7 @@ jobs:
         kubectl get pods -n compliance
         kubectl wait --for=condition=complete jobs/kube-bench -n compliance
         kubectl logs jobs/kube-bench -n compliance
-        failcount=$(kubectl logs jobs/kube-bench -n compliance | grep -o "FAIL")
+        failcount=$(kubectl logs jobs/kube-bench -n compliance | grep -c "FAIL")
         echo "Number of FAIL checks: "
         echo $failcount
         if [ $failcount -gt 5 ]; then
