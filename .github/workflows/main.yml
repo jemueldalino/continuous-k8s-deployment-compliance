@@ -22,5 +22,6 @@ jobs:
         minikube update-context
         kubectl cluster-info
         kubectl get pods -n kube-system
+        kubectl create namespace compliance
         kubectl apply -f job.yaml -n compliance
         kubectl get pods -n compliance
