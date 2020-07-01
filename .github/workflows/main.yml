@@ -1,7 +1,21 @@
-- name: Single Node Kubernetes Cluster
-  uses: CodingNagger/minikube-setup-action@v1.0.3
-  with:
-    # Minikube version to install
-    minikube-version: # optional, default is 1.6.2
-    # Kubernetes version to install
-    k8s-version: # optional, default is 1.17.0
+name: "Cluster compliance using Minkube"
+on: [pull_request, push]
+
+jobs:
+  minikube-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: opsgang/ga-setup-minikube@v0.1.1
+      with:
+        minikube-version: 1.4.0
+        k8s-version: 1.15.1
+    - name: Testing
+      run: |
+        minikube config set vm-driver kvm2
+        minikube config set kubernetes-version=v1.15.1
+        minikube start
+        minikube update-context
+        kubectl cluster-info
+        kubectl get pods -n kube-system
+        docker run --pid=host -v /etc:/etc:ro -v /var:/var:ro -t aquasec/kube-bench:latest [master|node] --version 1.13
