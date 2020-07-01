@@ -22,5 +22,5 @@ jobs:
         minikube update-context
         kubectl cluster-info
         kubectl get pods -n kube-system
-        ls -al
         kubectl apply -f job.yaml
+        kubectl get pods | grep kube-bench
