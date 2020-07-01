@@ -23,4 +23,6 @@ jobs:
         kubectl cluster-info
         kubectl get pods -n kube-system
         kubectl apply -f job.yaml
-        kubectl get pods | grep kube-bench
+        pods=$(kubectl get pods --selector=job-name=kube-bench --output=jsonpath='{.items[*].metadata.name}')
+        echo $pods
+        kubectl logs $pods
