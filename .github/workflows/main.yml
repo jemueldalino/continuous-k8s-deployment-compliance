@@ -3,7 +3,7 @@ on: [pull_request, push]
 
 jobs:
   minikube-test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-16.04
     steps:
     - uses: actions/checkout@master
     - uses: opsgang/ga-setup-minikube@v0.1.1
@@ -12,9 +12,7 @@ jobs:
         k8s-version: 1.15.1
     - name: Testing
       run: |
-        minikube config set vm-driver=kvm2
-        minikube config set kubernetes-version=v1.15.1
-        minikube start
+        minikube start --kubernetes-version=v1.15.1 --vm-driver=kvm2
         minikube update-context
         kubectl cluster-info
         kubectl get pods -n kube-system
