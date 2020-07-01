@@ -24,5 +24,6 @@ jobs:
         kubectl get pods -n kube-system
         kubectl create namespace compliance
         kubectl apply -f job.yaml -n compliance
+        kubectl get pods -n compliance
         kubectl wait --for=condition=complete jobs/kube-bench -n compliance
         kubectl logs kube-bench -n compliance
