@@ -10,6 +10,9 @@ jobs:
       with:
         minikube-version: 1.11.0
         k8s-version: 1.15.1
+    - uses: actions/checkout@master
+      with:
+        repository: jemueldalino/kube-bench
     - name: Testing
       run: |
         sudo snap remove minikube
@@ -19,3 +22,4 @@ jobs:
         minikube update-context
         kubectl cluster-info
         kubectl get pods -n kube-system
+        ls -al
